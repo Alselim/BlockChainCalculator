@@ -10,6 +10,7 @@ namespace ConsoleCalc
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Калькулятор");
             Console.ReadKey();
         }
     }
