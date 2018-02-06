@@ -8,9 +8,24 @@ namespace ConsoleCalc
 {
     public class Calc
     {
-        public int Sub(int x, int y)
+        public double Sum(double x, double y)
+        {
+            return x + y;
+        }
+
+        public double Sub(double x, double y)
         {
             return x - y;
+        }
+
+        public double Div(double x, double y)
+        {
+            return x / y;
+        }
+
+        public double Pow(double x, double y)
+        {
+            return Math.Pow(x, y);
         }
     }
 }

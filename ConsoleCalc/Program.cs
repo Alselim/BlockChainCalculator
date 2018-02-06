@@ -12,20 +12,52 @@ namespace ConsoleCalc
         {
             Console.WriteLine("Калькулятор");
 
-            var oper = args[0];
-            if (oper == "sum")
+            if (args.Length == 0)
             {
-                var x = Convert.ToInt32(args[1]);
-                var y = Convert.ToInt32(args[2]);
-                var result = x + y;
-                
-                Console.WriteLine($"SUM({x}, {y}) = {result}");
+                Console.WriteLine("Введите операцию");
+                string oper = Console.ReadLine();
+
+                Console.WriteLine("Введите параметр х");
+                var x = Console.ReadLine();
+
+                Console.WriteLine("Введите параметр y");
+                var y = Console.ReadLine();
+
+                args = new[] { oper, x, y };
+
             }
-            else
-            {
-                Console.WriteLine("null");
-            }
+
+            Calc(args[0], args[1], args[2]);
+
             Console.ReadKey();
+        }
+
+        static void Calc(string oper, string x, string y)
+        {
+            var calc = new Calc();
+            var a = Convert.ToDouble(x);
+            var b = Convert.ToDouble(y);
+            
+            double? result = null;
+
+            switch (oper)
+            {
+                case "sum":
+                    {
+                        result = calc.Sum(a, b);
+                        break;
+                    }
+                case "sub":
+                    {
+                        result = calc.Sub(a, b);
+                        break;
+                    }
+                default:
+                    break;
+            }
+
+            Console.WriteLine($"{oper}({a},{b}) = {result}");
+
         }
     }
 }
