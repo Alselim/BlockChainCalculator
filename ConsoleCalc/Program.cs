@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace ConsoleCalc
 {
@@ -10,11 +7,21 @@ namespace ConsoleCalc
     {
         static void Main(string[] args)
         {
+
+            var calc = new Calc();
+
+            var operations = calc.GetOperNames();
+
             Console.WriteLine("Калькулятор");
 
             if (args.Length == 0)
             {
                 Console.WriteLine("Введите операцию");
+                foreach (var item in operations)
+                {
+                    Console.WriteLine(item);
+                }
+
                 string oper = Console.ReadLine();
 
                 Console.WriteLine("Введите параметр х");
@@ -35,27 +42,12 @@ namespace ConsoleCalc
         static void Calc(string oper, string x, string y)
         {
             var calc = new Calc();
+            
             var a = Convert.ToDouble(x);
             var b = Convert.ToDouble(y);
-            
-            double? result = null;
 
-            switch (oper)
-            {
-                case "sum":
-                    {
-                        result = calc.Sum(a, b);
-                        break;
-                    }
-                case "sub":
-                    {
-                        result = calc.Sub(a, b);
-                        break;
-                    }
-                default:
-                    break;
-            }
-
+            var result = calc.Exec(oper, new[] { a, b });
+ 
             Console.WriteLine($"{oper}({a},{b}) = {result}");
 
         }
