@@ -2,6 +2,7 @@
 using ITUniver.Calc.Core.Operations;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -15,16 +16,34 @@ namespace ConsoleCalc
         {
             operations = new List<IOperation>();
 
-            var assembly = Assembly.GetExecutingAssembly();
+            //Загружаем наши библиотеки
+            LoadOperation(Assembly.GetExecutingAssembly());
 
+            //Загружаем библиотеки сторонних разработчиков
+            //var assembly = Assembly.GetExecutingAssembly();
+            var extensionDir = Path.Combine(Environment.CurrentDirectory, "Extensions");
+            var files = Directory.GetFiles(extensionDir, "*.dll");
+
+            foreach (var file in files)
+            {
+                LoadOperation(Assembly.LoadFile(file));
+            }
+            var assembly = Assembly.LoadFile(files.FirstOrDefault());
+
+        }
+
+
+        private void LoadOperation(Assembly assembly)
+        {
             var types = assembly.GetTypes();
+            var typeofOperation = typeof(IOperation);
 
-            foreach (var item in types)
+            foreach (var item in types.Where(t => !t.IsAbstract && !t.IsInterface))
             {
                 var interfaces = item.GetInterfaces();
 
                 var isOperation = interfaces.Any(
-                    it => it == typeof(IOperation));
+                    it => it == typeofOperation);
 
                 if (isOperation)
                 {
@@ -39,10 +58,9 @@ namespace ConsoleCalc
                         operations.Add(operation);
                     }
                 }
-
             }
-        }
 
+        }
         /// <summary>
         /// Получить список имен операциий
         /// </summary>
