@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace ConsoleCalc
 {
@@ -10,20 +8,27 @@ namespace ConsoleCalc
     {
         static void Main(string[] args)
         {
+
+            var calc = new Calc();
+
+            var operations = calc.GetOperNames();
+
             Console.WriteLine("Калькулятор");
 
             if (args.Length == 0)
             {
                 Console.WriteLine("Введите операцию");
+                foreach (var item in operations)
+                {
+                    Console.WriteLine(item);
+                }
+
                 string oper = Console.ReadLine();
 
-                Console.WriteLine("Введите параметр х");
+                Console.WriteLine("Введите параметр через пробел");
                 var x = Console.ReadLine();
 
-                Console.WriteLine("Введите параметр y");
-                var y = Console.ReadLine();
-
-                args = new[] { oper, x, y };
+                args = new[] { oper, x, "" };
 
             }
 
@@ -35,28 +40,17 @@ namespace ConsoleCalc
         static void Calc(string oper, string x, string y)
         {
             var calc = new Calc();
-            var a = Convert.ToDouble(x);
-            var b = Convert.ToDouble(y);
-            
-            double? result = null;
 
-            switch (oper)
+            var args = x.Trim().Split(' ').Select(it => Convert.ToDouble(it)).ToList();
+
+            if (!string.IsNullOrWhiteSpace(y))
             {
-                case "sum":
-                    {
-                        result = calc.Sum(a, b);
-                        break;
-                    }
-                case "sub":
-                    {
-                        result = calc.Sub(a, b);
-                        break;
-                    }
-                default:
-                    break;
+                args.Add(Convert.ToDouble(y));
             }
 
-            Console.WriteLine($"{oper}({a},{b}) = {result}");
+            var result = calc.Exec(oper, args.ToArray());
+
+            Console.WriteLine($"{oper}({string.Join(",", args)}) = {result}");
 
         }
     }
