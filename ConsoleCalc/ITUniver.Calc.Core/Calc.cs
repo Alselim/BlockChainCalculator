@@ -16,34 +16,34 @@ namespace ConsoleCalc
         {
             operations = new List<IOperation>();
 
-            //Загружаем наши библиотеки
+            // Загружаем наши операции
             LoadOperation(Assembly.GetExecutingAssembly());
 
-            //Загружаем библиотеки сторонних разработчиков
-            //var assembly = Assembly.GetExecutingAssembly();
-            var extensionDir = Path.Combine(Environment.CurrentDirectory, "Extensions");
-            var files = Directory.GetFiles(extensionDir, "*.dll");
+            // Загружаем сторонние библиотеки с операциями
+            var extensionsDir = Path.Combine(Environment.CurrentDirectory, "Extensions");
+
+            if (!Directory.Exists(extensionsDir))
+                return;
+
+            var files = Directory.GetFiles(extensionsDir, "*.dll");
 
             foreach (var file in files)
             {
                 LoadOperation(Assembly.LoadFile(file));
             }
-            var assembly = Assembly.LoadFile(files.FirstOrDefault());
 
         }
-
 
         private void LoadOperation(Assembly assembly)
         {
             var types = assembly.GetTypes();
-            var typeofOperation = typeof(IOperation);
+            var typeOperation = typeof(IOperation);
 
             foreach (var item in types.Where(t => !t.IsAbstract && !t.IsInterface))
             {
                 var interfaces = item.GetInterfaces();
 
-                var isOperation = interfaces.Any(
-                    it => it == typeofOperation);
+                var isOperation = interfaces.Any(it => it == typeOperation);
 
                 if (isOperation)
                 {
@@ -58,9 +58,10 @@ namespace ConsoleCalc
                         operations.Add(operation);
                     }
                 }
-            }
 
+            }
         }
+
         /// <summary>
         /// Получить список имен операциий
         /// </summary>
@@ -73,7 +74,8 @@ namespace ConsoleCalc
         public double Exec(string oper, double[] args)
         {
             // найти операцию в списке
-            var operation = operations.FirstOrDefault(o => o.Name == oper);
+            var operation = operations
+                .FirstOrDefault(o => o.Name == oper);
 
             // если не найдено - возвращает ошибку
             if (operation == null)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 
 namespace ConsoleCalc
@@ -13,6 +14,7 @@ namespace ConsoleCalc
             var operations = calc.GetOperNames();
 
             Console.WriteLine("Калькулятор");
+
             if (args.Length == 0)
             {
                 Console.WriteLine("Введите операцию");
@@ -23,36 +25,32 @@ namespace ConsoleCalc
 
                 string oper = Console.ReadLine();
 
-                Console.Write("Введите числа через запятую:");
+                Console.WriteLine("Введите параметр через пробел");
                 var x = Console.ReadLine();
-                var y = x.Split(',');
 
-                Calc(oper, y);
+                args = new[] { oper, x, "" };
+
             }
-            else
-            {
-                string oper = args[0];
-                string[] y = args[1].Split(',');
-                Calc(oper, y);
-            }
+
+            Calc(args[0], args[1], args[2]);
 
             Console.ReadKey();
         }
 
-        static void Calc(string oper, string[] y)
+        static void Calc(string oper, string x, string y)
         {
             var calc = new Calc();
 
-            //var a = Convert.ToDouble(x);
-            double[] b = new double[y.Length];
+            var args = x.Trim().Split(' ').Select(it => Convert.ToDouble(it)).ToList();
 
-            for (int i = 0; i < y.Length; i++)
+            if (!string.IsNullOrWhiteSpace(y))
             {
-                b[i] = Convert.ToDouble(y[i]);
+                args.Add(Convert.ToDouble(y));
             }
-            var result = calc.Exec(oper,  b );
 
-            Console.WriteLine($"{oper}({String.Join(", ", b)}) = {result}");
+            var result = calc.Exec(oper, args.ToArray());
+
+            Console.WriteLine($"{oper}({string.Join(",", args)}) = {result}");
 
         }
     }
