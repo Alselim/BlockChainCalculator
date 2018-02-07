@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B6F25292-F0B6-4D84-92E2-683140EDE8A4}</ProjectGuid>
+    <ProjectGuid>{75342B28-C5E0-4E5C-B1F7-D06ECFC4B86E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ITUniver.Calc.Core</RootNamespace>
-    <AssemblyName>ITUniver.Calc.Core</AssemblyName>
+    <RootNamespace>Google.Calc.Finance</RootNamespace>
+    <AssemblyName>Google.Calc.Finance</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ITUniver.Calc.Core">
+      <HintPath>..\ITUniver.Calc.Core\bin\Debug\ITUniver.Calc.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,15 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calc.cs" />
-    <Compile Include="Interfaces\IOperation.cs" />
-    <Compile Include="Operations\PowOperation.cs" />
-    <Compile Include="Operations\DivOperation.cs" />
-    <Compile Include="Operations\SubOperation.cs" />
-    <Compile Include="Operations\SumOperation.cs" />
+    <Compile Include="CreditOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

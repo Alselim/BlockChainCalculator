@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 
 namespace ConsoleCalc
@@ -24,13 +25,10 @@ namespace ConsoleCalc
 
                 string oper = Console.ReadLine();
 
-                Console.WriteLine("Введите параметр х");
+                Console.WriteLine("Введите параметр через пробел");
                 var x = Console.ReadLine();
 
-                Console.WriteLine("Введите параметр y");
-                var y = Console.ReadLine();
-
-                args = new[] { oper, x, y };
+                args = new[] { oper, x, "" };
 
             }
 
@@ -42,13 +40,17 @@ namespace ConsoleCalc
         static void Calc(string oper, string x, string y)
         {
             var calc = new Calc();
-            
-            var a = Convert.ToDouble(x);
-            var b = Convert.ToDouble(y);
 
-            var result = calc.Exec(oper, new[] { a, b });
- 
-            Console.WriteLine($"{oper}({a},{b}) = {result}");
+            var args = x.Trim().Split(' ').Select(it => Convert.ToDouble(it)).ToList();
+
+            if (!string.IsNullOrWhiteSpace(y))
+            {
+                args.Add(Convert.ToDouble(y));
+            }
+
+            var result = calc.Exec(oper, args.ToArray());
+
+            Console.WriteLine($"{oper}({string.Join(",", args)}) = {result}");
 
         }
     }
