@@ -5,10 +5,10 @@ namespace ITUniver.Calc.Core.Operations
 {
     public class DivOperation : IOperation
     {
-        //public int argCount
-        //{
-        //    get { return 2; }
-        //}
+        public int argCount
+        {
+            get { return 2; }
+        }
 
         public string Name => "div";
 
