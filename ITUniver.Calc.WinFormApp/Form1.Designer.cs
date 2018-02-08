@@ -31,13 +31,12 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cbOperation = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tbInput = new System.Windows.Forms.MaskedTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tbResult = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnLuck = new System.Windows.Forms.Button();
-            this.btnReset = new System.Windows.Forms.Button();
             this.btnCalc = new System.Windows.Forms.Button();
+            this.btnLuck = new System.Windows.Forms.Button();
+            this.tbInput = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -68,6 +67,7 @@
             this.cbOperation.Name = "cbOperation";
             this.cbOperation.Size = new System.Drawing.Size(506, 24);
             this.cbOperation.TabIndex = 0;
+            this.cbOperation.SelectedIndexChanged += new System.EventHandler(this.cbOperation_SelectedIndexChanged);
             // 
             // groupBox1
             // 
@@ -80,17 +80,6 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Входные данные";
-            // 
-            // tbInput
-            // 
-            this.tbInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbInput.Location = new System.Drawing.Point(10, 25);
-            this.tbInput.Mask = "############################";
-            this.tbInput.Name = "tbInput";
-            this.tbInput.PromptChar = ' ';
-            this.tbInput.Size = new System.Drawing.Size(506, 22);
-            this.tbInput.TabIndex = 1;
-            this.tbInput.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // groupBox3
             // 
@@ -117,7 +106,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.btnReset);
             this.panel1.Controls.Add(this.btnCalc);
             this.panel1.Controls.Add(this.btnLuck);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -126,31 +114,10 @@
             this.panel1.Size = new System.Drawing.Size(526, 67);
             this.panel1.TabIndex = 8;
             // 
-            // btnLuck
-            // 
-            this.btnLuck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnLuck.Location = new System.Drawing.Point(10, 12);
-            this.btnLuck.Name = "btnLuck";
-            this.btnLuck.Size = new System.Drawing.Size(101, 43);
-            this.btnLuck.TabIndex = 6;
-            this.btnLuck.Text = "Мне повезет";
-            this.btnLuck.UseVisualStyleBackColor = true;
-            this.btnLuck.Click += new System.EventHandler(this.btnLuck_Click);
-            // 
-            // btnReset
-            // 
-            this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReset.Enabled = false;
-            this.btnReset.Location = new System.Drawing.Point(304, 11);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(96, 43);
-            this.btnReset.TabIndex = 8;
-            this.btnReset.Text = "Очистить";
-            this.btnReset.UseVisualStyleBackColor = true;
-            // 
             // btnCalc
             // 
             this.btnCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCalc.Enabled = false;
             this.btnCalc.Location = new System.Drawing.Point(406, 11);
             this.btnCalc.Name = "btnCalc";
             this.btnCalc.Size = new System.Drawing.Size(110, 43);
@@ -158,6 +125,28 @@
             this.btnCalc.Text = "Вычислить";
             this.btnCalc.UseVisualStyleBackColor = true;
             this.btnCalc.Click += new System.EventHandler(this.btnCalc_Click);
+            // 
+            // btnLuck
+            // 
+            this.btnLuck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLuck.Location = new System.Drawing.Point(10, 12);
+            this.btnLuck.Name = "btnLuck";
+            this.btnLuck.Size = new System.Drawing.Size(136, 43);
+            this.btnLuck.TabIndex = 6;
+            this.btnLuck.Text = "Мне повезет";
+            this.btnLuck.UseVisualStyleBackColor = true;
+            this.btnLuck.Click += new System.EventHandler(this.btnLuck_Click);
+            // 
+            // tbInput
+            // 
+            this.tbInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbInput.Location = new System.Drawing.Point(10, 25);
+            this.tbInput.Name = "tbInput";
+            this.tbInput.Size = new System.Drawing.Size(506, 22);
+            this.tbInput.TabIndex = 2;
+            this.tbInput.Click += new System.EventHandler(this.tbInput_Click);
+            this.tbInput.TextChanged += new System.EventHandler(this.tbInput_TextChanged);
+            this.tbInput.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbInput_KeyUp);
             // 
             // Form1
             // 
@@ -186,13 +175,12 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox cbOperation;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.MaskedTextBox tbInput;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox tbResult;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.Button btnLuck;
+        private System.Windows.Forms.TextBox tbInput;
     }
 }
 
