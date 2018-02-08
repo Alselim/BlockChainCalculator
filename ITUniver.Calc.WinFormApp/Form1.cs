@@ -59,6 +59,11 @@ namespace ITUniver.Calc.WinFormApp
 
             // показать результат
             tbResult.Text = $"{result}";
+
+            // добавить в историю в БД
+            MyHelper.AddToHistory(lastOperation.Name, args, result);
+            // добавить в историю на форму
+            lbHistory.Items.Add($"{result}");
         }
 
         private void cbOperation_SelectedIndexChanged(object sender, EventArgs e)
