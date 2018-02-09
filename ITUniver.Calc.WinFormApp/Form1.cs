@@ -26,10 +26,32 @@ namespace ITUniver.Calc.WinFormApp
 
             calc = new ConsoleCalc.Calc();
 
-            cbOperation.DataSource = calc.GetOpers();
-            cbOperation.DisplayMember = "Name";
+            cbOperation.Items.Clear();
+            
+            var operations = calc.GetOpers();
+            cbOperation.DataSource = operations;
+            //var superOperations = operations.OfType<SuperOperation>();
+
+            //cbOperation.Items.AddRange(
+            //    superOperations
+            //        .Select(s => s.OwnerName)
+            //        .ToArray()
+            //);
+
+            //cbOperation.Items.AddRange(
+            //    operations
+            //        .Except(superOperations)
+            //        .Select(s => s.Name)
+            //        .ToArray()
+            //);
 
             btnCalc.Enabled = false;
+            #endregion
+
+            #region Загрузка истории
+
+            lbHistory.Items.AddRange(MyHelper.GetAll());
+
             #endregion
 
         }
@@ -44,26 +66,7 @@ namespace ITUniver.Calc.WinFormApp
             tbInput.Focus();
             tbInput_Click(sender, e);
 
-            if (lastOperation == null)
-                return;
-
-            // получить данные
-            var args = tbInput.Text
-                .Trim()
-                .Split(' ')
-                .Select(str => Convert.ToDouble(str))
-                .ToArray();
-
-            // вычислить результат
-            var result = lastOperation.Exec(args);
-
-            // показать результат
-            tbResult.Text = $"{result}";
-
-            // добавить в историю в БД
-            MyHelper.AddToHistory(lastOperation.Name, args, result);
-            // добавить в историю на форму
-            lbHistory.Items.Add($"{result}");
+            Calculate();
         }
 
         private void cbOperation_SelectedIndexChanged(object sender, EventArgs e)
@@ -90,6 +93,37 @@ namespace ITUniver.Calc.WinFormApp
         private void tbInput_Click(object sender, EventArgs e)
         {
             tbInput.SelectAll();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Calculate()
+        {
+
+            if (lastOperation == null)
+                return;
+
+            // получить данные
+            var args = tbInput.Text
+                .Trim()
+                .Split(' ')
+                .Select(str => Convert.ToDouble(str))
+                .ToArray();
+
+            // вычислить результат
+            var result = lastOperation.Exec(args);
+
+            // показать результат
+            tbResult.Text = $"{result}";
+
+            // добавить в историю в БД
+            MyHelper.AddToHistory(lastOperation.Name, args, result);
+            // добавить в историю на форму
+            lbHistory.Items.Clear();
+            lbHistory.Items.AddRange(MyHelper.GetAll());
         }
     }
 }

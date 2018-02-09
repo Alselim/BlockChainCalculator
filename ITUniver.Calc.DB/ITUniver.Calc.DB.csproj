@@ -58,6 +58,7 @@
     <Compile Include="Models\HistoryItem.cs" />
     <Compile Include="Models\IHistoryItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DBRepository.cs" />
     <Compile Include="Repositories\IHistoryRepository.cs" />
     <Compile Include="Repositories\MemoryRepository.cs" />
   </ItemGroup>
