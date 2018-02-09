@@ -1,5 +1,5 @@
 ﻿using ITUniver.Calc.DB.Models;
-using System;
+using System.Collections.Generic;
 
 namespace ITUniver.Calc.DB.Repositories
 {
@@ -10,5 +10,6 @@ namespace ITUniver.Calc.DB.Repositories
         void Save(IHistoryItem item);
 
         void Delete(long id);
+        IList<IHistoryItem> GetAll();
     }
 }

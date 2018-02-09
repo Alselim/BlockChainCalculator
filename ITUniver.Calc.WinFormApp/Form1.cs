@@ -1,12 +1,7 @@
 ﻿using ITUniver.Calc.Core.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ITUniver.Calc.WinFormApp
@@ -63,7 +58,11 @@ namespace ITUniver.Calc.WinFormApp
             // добавить в историю в БД
             MyHelper.AddToHistory(lastOperation.Name, args, result);
             // добавить в историю на форму
-            lbHistory.Items.Add($"{result}");
+            //lbHistory.Items.Add($"{result}");
+            var items = MyHelper.GetAll();
+            lbHistory.Items.Clear();
+            lbHistory.Items.AddRange(items.Select(it => it.Result.ToString()).ToArray());
+
         }
 
         private void cbOperation_SelectedIndexChanged(object sender, EventArgs e)

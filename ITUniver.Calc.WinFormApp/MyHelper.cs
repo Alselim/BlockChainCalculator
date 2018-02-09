@@ -2,9 +2,6 @@
 using ITUniver.Calc.DB.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ITUniver.Calc.WinFormApp
 {
@@ -24,6 +21,11 @@ namespace ITUniver.Calc.WinFormApp
             item.ExecDate = DateTime.Now;
 
             History.Save(item);
+        }
+
+        public static IList<IHistoryItem> GetAll()
+        {
+            return History.GetAll();
         }
     }
 }

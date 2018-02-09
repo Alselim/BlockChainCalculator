@@ -22,5 +22,10 @@ namespace ITUniver.Calc.DB.Repositories
         {
             items.Add(item);
         }
+
+        public IList<IHistoryItem> GetAll()
+        {
+            return items;
+        }
     }
 }
