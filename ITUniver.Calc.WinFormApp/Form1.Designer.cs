@@ -28,20 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cbOperation = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbInput = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.tbResult = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCalc = new System.Windows.Forms.Button();
             this.btnLuck = new System.Windows.Forms.Button();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lbHistory = new System.Windows.Forms.ListBox();
+            this.tbResult = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -59,6 +61,7 @@
             // cbOperation
             // 
             this.cbOperation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbOperation.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cbOperation.FormattingEnabled = true;
             this.cbOperation.Items.AddRange(new object[] {
             "sum",
@@ -66,8 +69,9 @@
             "div"});
             this.cbOperation.Location = new System.Drawing.Point(10, 25);
             this.cbOperation.Name = "cbOperation";
-            this.cbOperation.Size = new System.Drawing.Size(506, 24);
+            this.cbOperation.Size = new System.Drawing.Size(506, 23);
             this.cbOperation.TabIndex = 0;
+            this.cbOperation.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cbOperation_DrawItem);
             this.cbOperation.SelectedIndexChanged += new System.EventHandler(this.cbOperation_SelectedIndexChanged);
             // 
             // groupBox1
@@ -92,30 +96,6 @@
             this.tbInput.Click += new System.EventHandler(this.tbInput_Click);
             this.tbInput.TextChanged += new System.EventHandler(this.tbInput_TextChanged);
             this.tbInput.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbInput_KeyUp);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.lbHistory);
-            this.groupBox3.Controls.Add(this.tbResult);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(0, 124);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(10);
-            this.groupBox3.Size = new System.Drawing.Size(526, 216);
-            this.groupBox3.TabIndex = 7;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Результат";
-            // 
-            // tbResult
-            // 
-            this.tbResult.BackColor = System.Drawing.SystemColors.Control;
-            this.tbResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbResult.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tbResult.Location = new System.Drawing.Point(10, 25);
-            this.tbResult.Name = "tbResult";
-            this.tbResult.ReadOnly = true;
-            this.tbResult.Size = new System.Drawing.Size(506, 22);
-            this.tbResult.TabIndex = 0;
             // 
             // panel1
             // 
@@ -150,6 +130,24 @@
             this.btnLuck.UseVisualStyleBackColor = true;
             this.btnLuck.Click += new System.EventHandler(this.btnLuck_Click);
             // 
+            // timer
+            // 
+            this.timer.Interval = 300;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.lbHistory);
+            this.groupBox3.Controls.Add(this.tbResult);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(0, 124);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(10);
+            this.groupBox3.Size = new System.Drawing.Size(526, 149);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Результат";
+            // 
             // lbHistory
             // 
             this.lbHistory.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -157,16 +155,27 @@
             this.lbHistory.ItemHeight = 16;
             this.lbHistory.Location = new System.Drawing.Point(10, 47);
             this.lbHistory.Name = "lbHistory";
-            this.lbHistory.Size = new System.Drawing.Size(506, 159);
+            this.lbHistory.Size = new System.Drawing.Size(506, 92);
             this.lbHistory.TabIndex = 1;
+            // 
+            // tbResult
+            // 
+            this.tbResult.BackColor = System.Drawing.SystemColors.Control;
+            this.tbResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbResult.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tbResult.Location = new System.Drawing.Point(10, 25);
+            this.tbResult.Name = "tbResult";
+            this.tbResult.ReadOnly = true;
+            this.tbResult.Size = new System.Drawing.Size(506, 22);
+            this.tbResult.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(526, 340);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.MaximizeBox = false;
@@ -176,9 +185,9 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -187,13 +196,14 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox cbOperation;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox tbResult;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.Button btnLuck;
         private System.Windows.Forms.TextBox tbInput;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ListBox lbHistory;
+        private System.Windows.Forms.TextBox tbResult;
     }
 }
 

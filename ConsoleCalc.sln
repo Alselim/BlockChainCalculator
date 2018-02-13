@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITUniver.Calc.ConsoleCalc", "ConsoleCalc\ITUniver.Calc.ConsoleCalc.csproj", "{2CC7CCDA-5EEA-4E5A-A37E-ACC435B45078}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITUniver.Calc.ConsoleTest", "ConsoleTest\ITUniver.Calc.ConsoleTest.csproj", "{6C799B7E-1A4E-4EF6-B303-CEA59E09EBCD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITUniver.Calc.Core", "ITUniver.Calc.Core\ITUniver.Calc.Core.csproj", "{B6F25292-F0B6-4D84-92E2-683140EDE8A4}"
@@ -17,6 +19,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CC7CCDA-5EEA-4E5A-A37E-ACC435B45078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CC7CCDA-5EEA-4E5A-A37E-ACC435B45078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CC7CCDA-5EEA-4E5A-A37E-ACC435B45078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CC7CCDA-5EEA-4E5A-A37E-ACC435B45078}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6C799B7E-1A4E-4EF6-B303-CEA59E09EBCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6C799B7E-1A4E-4EF6-B303-CEA59E09EBCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C799B7E-1A4E-4EF6-B303-CEA59E09EBCD}.Release|Any CPU.ActiveCfg = Release|Any CPU

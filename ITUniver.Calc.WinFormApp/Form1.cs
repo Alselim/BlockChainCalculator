@@ -1,7 +1,12 @@
 ﻿using ITUniver.Calc.Core.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ITUniver.Calc.WinFormApp
@@ -21,10 +26,19 @@ namespace ITUniver.Calc.WinFormApp
 
             calc = new ConsoleCalc.Calc();
 
-            cbOperation.DataSource = calc.GetOpers();
+            cbOperation.Items.Clear();
+            
+            var operations = calc.GetOpers();
+            cbOperation.DataSource = operations;
             cbOperation.DisplayMember = "Name";
 
             btnCalc.Enabled = false;
+            #endregion
+
+            #region Загрузка истории
+
+            lbHistory.Items.AddRange(MyHelper.GetAll());
+
             #endregion
 
         }
@@ -39,30 +53,7 @@ namespace ITUniver.Calc.WinFormApp
             tbInput.Focus();
             tbInput_Click(sender, e);
 
-            if (lastOperation == null)
-                return;
-
-            // получить данные
-            var args = tbInput.Text
-                .Trim()
-                .Split(' ')
-                .Select(str => Convert.ToDouble(str))
-                .ToArray();
-
-            // вычислить результат
-            var result = lastOperation.Exec(args);
-
-            // показать результат
-            tbResult.Text = $"{result}";
-
-            // добавить в историю в БД
-            MyHelper.AddToHistory(lastOperation.Name, args, result);
-            // добавить в историю на форму
-            //lbHistory.Items.Add($"{result}");
-            var items = MyHelper.GetAll();
-            lbHistory.Items.Clear();
-            lbHistory.Items.AddRange(items.Select(it => it.Result.ToString()).ToArray());
-
+            Calculate();
         }
 
         private void cbOperation_SelectedIndexChanged(object sender, EventArgs e)
@@ -89,6 +80,51 @@ namespace ITUniver.Calc.WinFormApp
         private void tbInput_Click(object sender, EventArgs e)
         {
             tbInput.SelectAll();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Calculate()
+        {
+
+            if (lastOperation == null)
+                return;
+
+            // получить данные
+            var args = tbInput.Text
+                .Trim()
+                .Split(' ')
+                .Select(str => Convert.ToDouble(str))
+                .ToArray();
+
+            // вычислить результат
+            var result = lastOperation.Exec(args);
+
+            // показать результат
+            tbResult.Text = $"{result}";
+
+            // добавить в историю в БД
+            MyHelper.AddToHistory(lastOperation.Name, args, result);
+            // добавить в историю на форму
+            lbHistory.Items.Clear();
+            lbHistory.Items.AddRange(MyHelper.GetAll());
+        }
+
+        private void cbOperation_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+            var item = cbOperation.Items[e.Index] as IOperation;
+            if (item == null)
+                return;
+
+            var superOper = cbOperation.Items[e.Index] as SuperOperation;
+            Brush brush = superOper != null ? Brushes.Green : Brushes.Red;
+            var name = superOper != null ? superOper.OwnerName : item.Name;
+            e.Graphics.DrawString(name, e.Font, brush, e.Bounds);
+            e.DrawFocusRectangle();
         }
     }
 }

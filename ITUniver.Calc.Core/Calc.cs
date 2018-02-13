@@ -75,6 +75,7 @@ namespace ConsoleCalc
         /// Получить список имен операциий
         /// </summary>
         /// <returns></returns>
+        [Obsolete("Будет удалено в след.версии")]
         public IOperation[] GetOpers()
         {
             return operations.ToArray();

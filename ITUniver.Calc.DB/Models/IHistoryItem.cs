@@ -1,12 +1,11 @@
-﻿using System;
+﻿using ITUniver.Calc.DB.Repositories;
+using System;
 
 namespace ITUniver.Calc.DB.Models
 {
-    public interface IHistoryItem
+    public interface IHistoryItem : IEntity
     {
-        long Id { get; set; }
-
-        string Operation { get; set; }
+        long Operation { get; set; }
 
         string Args { get; set; }
 

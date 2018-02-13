@@ -3,13 +3,11 @@ using System.Collections.Generic;
 
 namespace ITUniver.Calc.DB.Repositories
 {
-    public interface IHistoryRepository
+    public interface IHistoryRepository : IBaseRepository<IHistoryItem>
     {
-        IHistoryItem Find(long id);
+    }
 
-        void Save(IHistoryItem item);
-
-        void Delete(long id);
-        IList<IHistoryItem> GetAll();
+    public interface IOperationRepository : IBaseRepository<Operation>
+    {
     }
 }
